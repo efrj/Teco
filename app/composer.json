@@ -1,0 +1,16 @@
+{
+    "name": "Teco",
+    "description": "Application for generate short url.",
+    "require": {
+        "php": ">=5.6.0",
+        "slim/slim": "^3.1",
+        "slim/php-view": "^2.0",
+        "monolog/monolog": "^1.17",
+        "illuminate/database": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Teco\\": "src"
+        }
+    }
+}
