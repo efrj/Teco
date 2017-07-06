@@ -22,3 +22,7 @@ body {
 .list-group-item {
   display: list-item;
 }
+
+.new-url {
+	display: none;
+}
