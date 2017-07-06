@@ -7,6 +7,6 @@ function short_url( $url ) {
     {
         return "Not valid";
     } else {
-        return 'http://teco.cf/' . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)];
+        return $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)] . $chars[array_rand($chars)];
     }
 }
