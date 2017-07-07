@@ -21,8 +21,17 @@ body {
 }
 .list-group-item {
   display: list-item;
+  list-style-type: none;
 }
 
 .new-url {
-	display: none;
+  display: none;
+}
+
+.url-error {
+  display: none;
+}
+
+#shortUrl {
+  font-size: 25px;
 }
