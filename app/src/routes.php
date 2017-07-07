@@ -5,18 +5,24 @@ $app->get('/', function ($request, $response) {
 });
 
 $app->post('/short-url', function ($request, $response) {
-    $url = $request->getParam('url');
-    $short = new \Teco\Model\Url;
-    $short->original_url = $url;
-    $short->short_url = short_url($url);
-    if ( $short->save() )
-    {
-        echo 'http://teco.cf/' . $short->short_url;
+    $url = validate_url($request->getParam('url'));
+    if ( $url == 'Not valid' ) {
+        return $url;
+    } else {
+        $short_url = new \Teco\Model\Url;
+        $short_url->original_url = $url;
+        $short_url->short_url = generate_chars(6);
+        if ( $short_url->save() )
+        {
+            echo 'http://teco.cf/' . $short_url->short_url;
+        }
     }
 });
 
 $app->get('/{url}', function ($request, $response) {
     $url = $request->getAttribute('url');
-    $short = \Teco\Model\Url::where('short_url', $url)->first();
-    return $response->withHeader('Location', $short->original_url);
+    $short_url = \Teco\Model\Url::where('short_url', $url)->first();
+    $original_url = $short_url->original_url;
+    // return $response->withHeader('Location', $short->original_url);
+    header( "refresh:1;url=$original_url" );
 });
