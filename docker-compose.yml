@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  php:
+    build: .
+    ports:
+     - "8123:80"
+     - "4431:443"
+    volumes:
+     - ./:/var/www/html
+    container_name: php.teco
