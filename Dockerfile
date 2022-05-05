@@ -8,8 +8,6 @@ RUN apt-get update
 RUN apt-get install -y neofetch
 #RUN apt-get install -y libzip-dev
 RUN apt-get install -y zip
-RUN apt-get install -y php8.0-sqlite
-RUN apt-get install -y php-sqlite3
 
 # Extensions
 #RUN docker-php-ext-configure zip --with-libzip

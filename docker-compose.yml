@@ -7,7 +7,7 @@ services:
      - "8123:80"
      - "4431:443"
     volumes:
-     - ./:/var/www/html
+     - ./www:/var/www/html
     container_name: php.teco
     links:
      - sqlite3
@@ -19,4 +19,4 @@ services:
     stdin_open: true
     tty: true
     volumes:
-     - ./db/:/root/db/
+     - ./www/app/db/:/root/db/
