@@ -9,3 +9,14 @@ services:
     volumes:
      - ./:/var/www/html
     container_name: php.teco
+    links:
+     - sqlite3
+
+  sqlite3:
+    image: nouchka/sqlite3:latest
+    restart: always
+    container_name: sqlite.teco
+    stdin_open: true
+    tty: true
+    volumes:
+     - ./db/:/root/db/
