@@ -5,30 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href="assets/css/main.css" rel="stylesheet">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="assets/js/main.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     </head>
-    <body style="background-image: url('https://dri.es/files/cache/blog/copyright-1280w.jpg');  background-repeat: no-repeat; background-size: cover;">
+    <body>
         <div class="container">
             <br/>
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-md-10">
-                    <form class="card">
-                        <div class="card-body row no-gutters align-items-center">
+                    <form class="card" id="formShortUrl">
+                        <div class="card-body row align-items-center">
                             <div class="col-md-10">
-                                <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Enter the url to be shortened">
+                                <input class="form-control form-control-lg form-control-borderless" type="url" id="url" placeholder="Enter the url to be shortened" required>
                             </div>
                             <!--end of col-->
 
                             <div class="col-md-2">
-                                <button class="btn btn-lg btn-success" type="submit"><i class="fas fa-search"></i> Shorten</button>
+                                <button class="btn btn-lg btn-success" type="submit"><i class="fas fa-compact-disc"></i> Shorten</button>
                             </div>
                             <!--end of col-->
                         </div>
                     </form>
                 </div>
                 <!--end of col-->
+            </div>
+
+            <div class="card urls">
+                <div class="col-lg-12 col-md-10 new-url">
+                    <h3>Copy the shortened url / Copie a url encurtada</h3>
+                    <div class="alert alert-success" role="alert" id="shortUrl"></div>
+                </div>
+                <div class="col-lg-12 col-md-10 url-error">
+                    <h3>An error has occurred / Ocorreu um Erro</h3>
+                    <div class="alert alert-danger" role="alert">
+                        <p>The url provided is invalid. Please provide a valid url.</p>
+                        <p>A url informada é inválida. Informe uma url válida.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

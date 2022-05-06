@@ -17,7 +17,7 @@ function validate_url( $url ) {
         $url = 'http://' . $url;
     }
 
-    if( filter_var($url, FILTER_VALIDATE_URL) === FALSE ) {
+    if ( filter_var($url, FILTER_VALIDATE_URL) === FALSE ) {
         return "Not valid";
     } else {
         return $url;

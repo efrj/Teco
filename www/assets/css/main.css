@@ -1,0 +1,17 @@
+body {
+    background-image: url('https://dri.es/files/cache/blog/copyright-1280w.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.urls {
+    display: none;
+}
+
+.new-url {
+    display: none;
+}
+
+.url-error {
+    display: none;
+}
