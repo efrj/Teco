@@ -1,52 +1,170 @@
-<html>
-    <head>
-        <title>teco url shortener</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link href="assets/css/main.css" rel="stylesheet">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="assets/js/main.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    </head>
-    <body>
-        <div class="container">
-            <br/>
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Teco — Encurtador de URLs Rápido & Elegante</title>
+    <meta name="description" content="Encurtador de URLs simples, rápido e moderno desenvolvido com PHP, Slim Framework e SQLite.">
+
+    <!-- Local Vendor Assets (Sem dependência de CDN externa) -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+    
+    <!-- Custom CSS com cache busting -->
+    <link rel="stylesheet" href="assets/css/main.css?v=<?= time() ?>">
+</head>
+<body>
+    <!-- Ambient glowing backdrop orbs -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="main-wrapper">
+        <header class="py-4 border-bottom border-light border-opacity-10">
+            <div class="container d-flex align-items-center justify-content-between">
+                <a href="/" class="text-decoration-none d-flex align-items-center gap-2">
+                    <span class="brand-title">
+                        <i class="bi bi-link-45deg"></i>Teco
+                    </span>
+                    <span class="brand-badge">v2.0</span>
+                </a>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-dark-subtle border border-light border-opacity-10 text-secondary py-2 px-3 rounded-pill d-none d-md-inline-flex align-items-center gap-2">
+                        <i class="bi bi-shield-check text-success"></i> 100% Local & Seguro
+                    </span>
+                    <a href="https://github.com/efrj/Teco" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-light rounded-pill px-3 py-1 d-inline-flex align-items-center gap-2" title="Código Fonte">
+                        <i class="bi bi-github"></i> <span class="d-none d-sm-inline">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="container my-5">
+            <!-- Hero section -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold mb-3">Encurte seus links com facilidade</h1>
+                <p class="brand-subtitle">
+                    Transforme URLs longas e complexas em links curtos, amigáveis e instantaneamente compartilháveis.
+                </p>
+            </div>
+
+            <!-- Form Card -->
             <div class="row justify-content-center">
-                <div class="col-lg-12 col-md-10">
-                    <form class="card" id="formShortUrl">
-                        <div class="card-body row align-items-center">
-                            <div class="col-md-10">
-                                <input class="form-control form-control-lg form-control-borderless" type="url" id="url" placeholder="Enter the url to be shortened" required>
+                <div class="col-lg-9 col-xl-8">
+                    <div class="glass-card p-4 p-md-5 mb-4">
+                        <form id="formShortUrl" novalidate>
+                            <div class="input-group input-group-lg url-input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-globe2 fs-4"></i>
+                                </span>
+                                <input 
+                                    class="form-control" 
+                                    type="url" 
+                                    id="url" 
+                                    name="url" 
+                                    placeholder="Cole sua URL longa aqui (ex: https://exemplo.com.br/artigo)..." 
+                                    required
+                                    autocomplete="off"
+                                    autofocus
+                                >
+                                <button class="btn btn-shorten" type="submit" id="submitBtn">
+                                    <i class="bi bi-lightning-charge-fill"></i>
+                                    <span>Encurtar Link</span>
+                                </button>
                             </div>
-                            <!--end of col-->
+                        </form>
 
-                            <div class="col-md-2">
-                                <button class="btn btn-lg btn-success" type="submit"><i class="fas fa-compact-disc"></i> Shorten</button>
+                        <!-- Error Box (inicia oculto) -->
+                        <div class="error-box mt-4" id="errorBox" style="display: none;">
+                            <div class="error-card d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-exclamation-triangle-fill fs-4 flex-shrink-0"></i>
+                                    <div>
+                                        <div class="fw-semibold">URL Inválida</div>
+                                        <div class="small" id="errorMessage">Por favor, insira uma URL válida para continuar.</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close btn-close-white" onclick="document.getElementById('errorBox').style.display='none'" aria-label="Fechar"></button>
                             </div>
-                            <!--end of col-->
                         </div>
-                    </form>
-                </div>
-                <!--end of col-->
-            </div>
 
-            <div class="card urls">
-                <div class="col-lg-12 col-md-10 new-url">
-                    <h3>Copy the shortened url / Copie a url encurtada</h3>
-                    <div class="alert alert-success" role="alert" id="shortUrl"></div>
-                </div>
-                <div class="col-lg-12 col-md-10 url-error">
-                    <h3>An error has occurred / Ocorreu um Erro</h3>
-                    <div class="alert alert-danger" role="alert">
-                        <p>The url provided is invalid. Please provide a valid url.</p>
-                        <p>A url informada é inválida. Informe uma url válida.</p>
+                        <!-- Result Box (inicia oculto) -->
+                        <div class="result-box mt-4" id="resultBox" style="display: none;">
+                            <div class="result-card">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <span class="text-success fw-bold small text-uppercase">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Link Encurtado com Sucesso!
+                                    </span>
+                                    <span class="badge bg-success-subtle text-success small">Pronto para uso</span>
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 pt-2">
+                                    <div class="result-url-display" id="shortUrlText"></div>
+                                    <div class="d-flex gap-2 flex-shrink-0">
+                                        <button class="btn btn-action-copy" id="copyBtn" type="button">
+                                            <i class="bi bi-clipboard"></i> Copiar
+                                        </button>
+                                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-action-open" id="openLink">
+                                            <i class="bi bi-box-arrow-up-right"></i> Abrir
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Features Highlights -->
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="feature-badge">
+                                <i class="bi bi-speedometer2"></i>
+                                <h6>Ultrarrápido</h6>
+                                <p>Processamento instantâneo via SQLite e Slim Framework</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-badge">
+                                <i class="bi bi-hdd-network"></i>
+                                <h6>100% Offline/Local</h6>
+                                <p>Zero dependência de CDNs ou servidores externos</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-badge">
+                                <i class="bi bi-box-seam"></i>
+                                <h6>Docker Ready</h6>
+                                <p>Pronto para produção e desenvolvimento com Docker</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History / Recent Links Section (inicia oculto) -->
+                    <div class="history-section mt-4" id="historySection" style="display: none;">
+                        <div class="glass-card history-card">
+                            <div class="history-title mb-3">
+                                <span><i class="bi bi-clock-history me-2 text-primary"></i> Seus Links Recentes</span>
+                                <button class="btn btn-sm btn-link text-danger text-decoration-none p-0" id="clearHistoryBtn" title="Limpar histórico local">
+                                    <i class="bi bi-trash"></i> Limpar
+                                </button>
+                            </div>
+                            <div id="historyList"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+        </main>
+    </div>
 
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p class="mb-1"><strong>Teco</strong> — Encurtador de URLs de código aberto.</p>
+            <p class="text-secondary small mb-0">Desenvolvido com PHP 8.4, Slim 3, Eloquent ORM & Bootstrap 5.</p>
+        </div>
+    </footer>
+
+    <!-- Local Vendor Scripts com cache busting -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js?v=<?= time() ?>"></script>
+</body>
+</html>

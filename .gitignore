@@ -1,1 +1,3 @@
+node_modules/
 infra/data/mysql-data
+.DS_Store
