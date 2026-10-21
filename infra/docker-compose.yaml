@@ -1,0 +1,25 @@
+services:
+  php:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    ports:
+     - "8123:80"
+     - "4431:443"
+    volumes:
+     - ./../www:/var/www/html
+    container_name: php.teco
+    depends_on:
+     - mariadb
+
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    container_name: mariadb.teco
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: teco_db
+      MYSQL_USER: teco_user
+      MYSQL_PASSWORD: teco_password
+    volumes:
+     - ./data/mysql-data:/var/lib/mysql
